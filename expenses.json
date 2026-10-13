@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "date": "2026-10-13",
+    "description": "Caderno",
+    "amount": "R$ 50.00"
+  },
+  {
+    "id": 2,
+    "date": "2026-10-13",
+    "description": "Carne",
+    "amount": "R$ 350.00"
+  }
+]
