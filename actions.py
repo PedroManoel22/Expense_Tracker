@@ -1,6 +1,8 @@
 import json
 from datetime import datetime
 
+from rich import print
+
 from functions import (
     load_expenses,
     register_expensive,
@@ -57,9 +59,10 @@ def delete_expense(id: int):
     with open("expenses.json", "w", encoding="utf-8") as file:
         json.dump(updated_expenses, file, indent=4, ensure_ascii=False)
 
+    print(
+        f"\n[green]Despesa '{expenses[valid_id - 1]['description']}' deletada com sucesso![/green]\n"
+    )
+
 
 def list_expenses() -> list[dict[str, float | str]]:
     return load_expenses()
-
-
-delete_expense(3)

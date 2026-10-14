@@ -2,7 +2,7 @@ import argparse
 
 from rich import print
 
-from actions import add_expense, update_expense
+from actions import add_expense, delete_expense, update_expense
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -31,6 +31,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     update_parser.add_argument("--id", type=int, help="ID da despesa a ser atualizada.")
 
+    # Comando: delete
+    delete_parser = subparses.add_parser(
+        "delete", help="Deleta uma despesa existente pelo id."
+    )
+    delete_parser.add_argument("--id", type=int, help="ID da despesa a ser deletada.")
+
     return parser
 
 
@@ -51,6 +57,12 @@ def main() -> None:
             update_expense(args.id)
             print("[green]\nDespesa atualizada com sucesso![/green]\n")
 
+        except ValueError as e:
+            print(f"\n[red]Erro: {e}[/red]\n")
+
+    elif args.command == "delete":
+        try:
+            delete_expense(args.id)
         except ValueError as e:
             print(f"\n[red]Erro: {e}[/red]\n")
 
