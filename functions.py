@@ -36,7 +36,7 @@ def register_expensive(expense: dict[str, float | str]) -> None:
 
     if expense["description"] in [e["description"] for e in expenses]:
         raise ValueError(
-            f"\n[yellow]Esta despesa intitulada de '{expense['description']}' já foi adicionada anteriormente.[/yellow]\n"
+            f"\nEsta despesa intitulada de '{expense['description']}' já foi adicionada anteriormente.\n"
         )
     else:
         expenses.append(expense)
@@ -82,8 +82,6 @@ def validate_expense_id(expense_id: int) -> int:
     """
 
     if expense_id not in [expense["id"] for expense in load_expenses()]:
-        raise ValueError(
-            f"\n[yellow]Não existe despesa com o ID {expense_id}.[/yellow]\n"
-        )
+        raise ValueError(f"\nNão existe despesa com o ID {expense_id}.\n")
 
     return expense_id

@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from functions import (
@@ -47,8 +48,18 @@ def update_expense(id: int):
                 expense["amount"] = f"R$ {new_amount:.2f}"
 
 
-def delete_expense(id: int): ...
+def delete_expense(id: int):
+    valid_id = validate_expense_id(id)
+    expenses = load_expenses()
+
+    updated_expenses = [expense for expense in expenses if expense["id"] != valid_id]
+
+    with open("expenses.json", "w", encoding="utf-8") as file:
+        json.dump(updated_expenses, file, indent=4, ensure_ascii=False)
 
 
 def list_expenses() -> list[dict[str, float | str]]:
     return load_expenses()
+
+
+delete_expense(3)
