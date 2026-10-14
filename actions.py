@@ -71,10 +71,33 @@ def delete_expense(id: int):
     with open("expenses.json", "w", encoding="utf-8") as file:
         json.dump(updated_expenses, file, indent=4, ensure_ascii=False)
 
-    print(
-        f"\n[green]Despesa '{expenses[valid_id - 1]['description']}' deletada com sucesso![/green]\n"
-    )
+    print("\n[green]Despesa deletada com sucesso![/green]\n")
 
 
-def list_expenses() -> list[dict[str, float | str]]:
-    return load_expenses()
+def list_expenses():
+    expenses = load_expenses()
+
+    if not expenses:
+        print("\n[red]Nenhuma despesa registrada.[/red]\n")
+    else:
+        print("\n[bold]Despesas registradas:[/bold]\n")
+        for expense in expenses:
+            print(
+                f"ID: {expense['id']}, Data: {expense['date']}, Descrição: {expense['description']}, Valor: {expense['amount']}"
+            )
+        print()
+
+
+def summary():
+    expenses = load_expenses()
+
+    if not expenses:
+        print("\n[red]Nenhuma despesa registrada.[/red]\n")
+    else:
+        total_amount = sum(
+            float(str(expense["amount"]).replace("R$ ", "").replace(",", "."))
+            for expense in expenses
+        )
+        print("\n[bold]Resumo das despesas:[/bold]")
+        print(f"Total de despesas: {len(expenses)}")
+        print(f"Valor total gasto: R$ {total_amount:.2f}\n")
