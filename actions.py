@@ -1,40 +1,50 @@
-import json
 from datetime import datetime
 
-from functions import load_expenses
+from functions import (
+    load_expenses,
+    register_expensive,
+    validate_amount,
+    validate_description,
+    validate_expense_id,
+)
 
 
 def add_expense(description: str, amount: float):
-    clean_description = description.strip()
+    clean_description = validate_description(description)
 
-    if not clean_description:
-        raise ValueError(
-            "A descrição da despesa não pode estar vazia ou conter apenas espaços."
-        )
-
-    if amount <= 0.0:
-        raise ValueError("O valor da despesa deve ser maior que zero.")
+    valid_amount = validate_amount(amount)
 
     expense: dict[str, float | str] = {
         "id": len(load_expenses()) + 1,
         "date": datetime.now().strftime("%Y-%m-%d"),
         "description": clean_description,
-        "amount": f"R$ {amount:.2f}",
+        "amount": f"R$ {valid_amount:.2f}",
     }
 
-    expenses: list[dict[str, float | str]] = load_expenses()
-
-    if expense["description"] in [e["description"] for e in expenses]:
-        raise ValueError(
-            f"\n[yellow]Esta despesa intitulada de '{expense['description']}' já foi adicionada anteriormente.[/yellow]\n"
-        )
-    else:
-        expenses.append(expense)
-        with open("expenses.json", "w") as file:
-            json.dump(expenses, file, indent=4)
+    return register_expensive(expense)
 
 
-def update_expense(id: int, new_description: str, new_amount: float): ...
+def update_expense(id: int):
+    valid_id = validate_expense_id(id)
+
+    if valid_id:
+        expenses = load_expenses()
+
+        for expense in expenses:
+            if expense["id"] == id:
+                new_description = input(
+                    f"Digite a nova descrição para a despesa '{expense['description']}': "
+                ).strip()
+                new_amount_str = input(
+                    f"Digite o novo valor para a despesa '{expense['description']}' (ex: 12.50): "
+                ).strip()
+
+                new_description = validate_description(new_description)
+
+                new_amount = validate_amount(float(new_amount_str))
+
+                expense["description"] = new_description
+                expense["amount"] = f"R$ {new_amount:.2f}"
 
 
 def delete_expense(id: int): ...

@@ -1,14 +1,20 @@
 [
-  {
-    "id": 1,
-    "date": "2026-10-13",
-    "description": "Caderno",
-    "amount": "R$ 50.00"
-  },
-  {
-    "id": 2,
-    "date": "2026-10-13",
-    "description": "Carne",
-    "amount": "R$ 350.00"
-  }
+    {
+        "id": 1,
+        "date": "2026-10-13",
+        "description": "Caderno",
+        "amount": "R$ 50.00"
+    },
+    {
+        "id": 2,
+        "date": "2026-10-13",
+        "description": "Carne",
+        "amount": "R$ 350.00"
+    },
+    {
+        "id": 3,
+        "date": "2026-10-14",
+        "description": "macarrão",
+        "amount": "R$ 20.00"
+    }
 ]

@@ -2,7 +2,7 @@ import argparse
 
 from rich import print
 
-from actions import add_expense
+from actions import add_expense, update_expense
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -24,6 +24,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--amount", type=float, help="Valor da despesa (ex: 12.50)."
     )
 
+    # Comando: update
+
+    update_parser = subparses.add_parser(
+        "update", help="Atualiza uma despesa existente pelo id."
+    )
+    update_parser.add_argument("--id", type=int, help="ID da despesa a ser atualizada.")
+
     return parser
 
 
@@ -35,6 +42,14 @@ def main() -> None:
         try:
             add_expense(args.description, args.amount)
             print("[green]\nDespesa adicionada com sucesso![/green]\n")
+
+        except ValueError as e:
+            print(f"\n[red]Erro: {e}[/red]\n")
+
+    elif args.command == "update":
+        try:
+            update_expense(args.id)
+            print("[green]\nDespesa atualizada com sucesso![/green]\n")
 
         except ValueError as e:
             print(f"\n[red]Erro: {e}[/red]\n")
