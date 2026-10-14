@@ -1,4 +1,5 @@
 import json
+import random
 from datetime import datetime
 
 from rich import print
@@ -11,14 +12,25 @@ from functions import (
     validate_expense_id,
 )
 
+AMOUNT_EXPENSES = 1000
+
 
 def add_expense(description: str, amount: float):
     clean_description = validate_description(description)
 
     valid_amount = validate_amount(amount)
 
+    current_expenses = load_expenses()
+
+    existing_ids = {expense["id"] for expense in current_expenses}
+
+    while True:
+        new_id = random.randint(1, AMOUNT_EXPENSES)
+        if new_id not in existing_ids:
+            break
+
     expense: dict[str, float | str] = {
-        "id": len(load_expenses()) + 1,
+        "id": new_id,
         "date": datetime.now().strftime("%Y-%m-%d"),
         "description": clean_description,
         "amount": f"R$ {valid_amount:.2f}",
