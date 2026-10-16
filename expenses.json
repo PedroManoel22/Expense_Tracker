@@ -16,5 +16,11 @@
     "date": "2026-10-14",
     "description": "caneta",
     "amount": "R$ 2.50"
+  },
+  {
+    "id": 3,
+    "date": "2026-09-14",
+    "description": "chapeu",
+    "amount": "R$ 50.00"
   }
 ]

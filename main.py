@@ -2,7 +2,14 @@ import argparse
 
 from rich import print
 
-from actions import add_expense, delete_expense, list_expenses, summary, update_expense
+from actions import (
+    add_expense,
+    delete_expense,
+    list_expenses,
+    list_for_month,
+    summary,
+    update_expense,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -41,7 +48,15 @@ def build_parser() -> argparse.ArgumentParser:
     subparses.add_parser("list", help="Lista todas as despesas registradas no sistema.")
 
     # Comando: summary
-    subparses.add_parser("summary", help="Exibe um resumo das despesas registradas.")
+    summary_parser = subparses.add_parser(
+        "summary", help="Exibe um resumo das despesas registradas."
+    )
+
+    # Comando: month
+
+    summary_parser.add_argument(
+        "--month", type=int, help="Filtra as despesas por um mês específico (1-12)."
+    )
 
     return parser
 
@@ -76,7 +91,10 @@ def main() -> None:
         list_expenses()
 
     elif args.command == "summary":
-        summary()
+        if args.month:
+            list_for_month(args.month)
+        else:
+            summary()
 
 
 if __name__ == "__main__":
