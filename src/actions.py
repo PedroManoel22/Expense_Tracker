@@ -4,7 +4,7 @@ from datetime import datetime
 
 from rich import print
 
-from src.functions import (
+from functions import (
     load_expenses,
     register_expensive,
     validate_amount,

@@ -2,7 +2,7 @@ import argparse
 
 from rich import print
 
-from src.actions import (
+from actions import (
     add_expense,
     delete_expense,
     list_expenses,
