@@ -58,3 +58,46 @@ cd Expense_Tracker
 # Instalar dependência visual (Rich)
 pip install rich
 ```
+
+### 1. Consultando a Ajuda (--help)
+
+```bash
+python3 main.py --help
+```
+
+### 2. Adicionando Despesas (add)
+
+```bash
+python3 main.py add --description "Almoço de Negócios" --amount 45.90
+python3 main.py add --description "Assinatura da Internet" --amount 120.00
+```
+
+### 3. Atualizando uma Despesa (update)
+
+```bash
+python3 main.py update --id 342
+```
+
+### 4. Deletando uma Despesa (delete)
+
+```bash
+python3 main.py delete --id 342
+```
+
+### 5. Listando Todas as Despesas (list)
+
+```bash
+python3 main.py list
+```
+
+### 6. Resumo Geral de Gastos (summary)
+
+```bash
+python3 main.py summary
+```
+
+### 7. Filtragem Despesas por Mẽs (summary --month)
+
+```bash
+python3 main.py summary --month 10
+```
